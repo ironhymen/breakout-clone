@@ -76,7 +76,7 @@ var GF = function () {
     // end of drawing functions
 
     // update loop
-    function update(inputStates, delta, w, h) {
+    function update(inputStates, delta, w, h,) {
         paddle.update(inputStates, delta);
         ball.update(delta, paddle, brickArray, w, h);
         // update the game state
@@ -90,17 +90,42 @@ var GF = function () {
         ball.draw(ctx);
       paddle.draw(ctx);
       drawBricks(brickArray);
+      ctx.fillText("Bricks Left " + brickArray.length, 10, 20);
+      ctx.fillText("Time: " + currentLevelTime.toFixed(2), 100, 20);
         // draw the game objects
-    }
+  }
+  
+  // gamestates
+  var gameStates = {
+    mainMenu: 0,
+    gameRunning: 1,
+    gameOver: 2
+  };
+
+  var currentGameState = gameStates.gameRunning;
+  var currentLevelTime = 0;
 
   var mainLoop = function (time) {
         setFrameRateInFramesPerSecond(60);
         var newTime = performance.now();
-        clearCanvas();
+    clearCanvas();
+    
+    // if no bricks left then game over
+    if (brickArray.length == 0) {
+      currentGameState = gameStates.gameOver = true;
+    }
+
+    if (ball.pos.y > h) {
+      currentGameState = gameStates.gameOver = true;
+    }
+
+    switch (currentGameState) {
+      case gameStates.gameRunning:
         // Main function called Each frame
         // measure FPS
         measureFPS(newTime);
         delta = timer(newTime);
+        currentLevelTime += delta / 1000;
         // Handle Input
         scangamepads();
         checkButtons(gamepad);
@@ -114,7 +139,16 @@ var GF = function () {
         // draw objects DONT FORGET TO DRAW THE OBJECTS
 
         draw(ctx);
-        
+        break;
+      case gameStates.gameOver:
+        ctx.fillText("Game Over", 300, 300);
+        ctx.fillText("Time: " + currentLevelTime.toFixed(2), 300, 350);
+        if (inputStates.key_space) {
+          startNewGame();
+       }
+       break;
+
+    }
         
         
 
@@ -125,7 +159,18 @@ var GF = function () {
         // call the animation loop every 1/60th of second
         requestAnimationFrame(mainLoop);
         
-    };
+  };
+  
+  function startNewGame() {
+    currentLevelTime = 0;
+    brickArray = [];
+    createBricks(numberOfBricks);
+    ball = new Ball(300, 400, 10, "red");
+    paddle = new Paddle(300, 550, 100, 20, "DeepSlatePurple");
+
+    currentGameState = gameStates.gameRunning;
+  }
+
     //----------------------------------
 // gamepad utility code
 //----------------------------------

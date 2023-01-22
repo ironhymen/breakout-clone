@@ -7,7 +7,7 @@ class Ball {
         this.mass = 1;
         this.friction = 0.01;
         this.acceleration = new Vector(1, 1);
-        this.maxSpeed = 0.5;
+        this.maxSpeed = 0.2 ;
     }
 
     draw(ctx) {
@@ -25,7 +25,7 @@ class Ball {
         ctx.restore();
     };
 
-update(dt, paddle, brickArray, w, h) {
+update(dt, paddle, brickArray, w, h, currentGameState) {
     // check for collision with walls
     if (this.pos.x < 0) {
         this.pos.x = 0;
@@ -42,6 +42,7 @@ update(dt, paddle, brickArray, w, h) {
     if (this.pos.y > h) {
         this.pos.y = h;
         this.velocity.y = -this.velocity.y;
+        
     }
 
     // check for collision with paddle
