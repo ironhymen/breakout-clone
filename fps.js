@@ -9,6 +9,7 @@
         // adds a div for displaying the fps value
         fpsContainer = document.createElement('div');
         document.body.appendChild(fpsContainer);
+        fpsContainer.id = "FPS"
     }
     
     var measureFPS = function (newTime) {
