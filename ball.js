@@ -90,8 +90,9 @@ update(dt, paddle, brickArray, w, h, currentGameState) {
     let xOverlap = calculateOverlap(brickArray[i].pos.x - brickArray[i].width / 2, brickArray[i].width, this.pos.x - this.width / 2, this.width);
     let yOverlap = calculateOverlap(brickArray[i].pos.y - brickArray[i].height / 2, brickArray[i].height, this.pos.y - this.height / 2, this.height);
     if (xOverlap > 0 && yOverlap > 0) {
-        brickArray.splice(i, 1);
+        
         this.velocity.y = -this.velocity.y;
+        brickArray.splice(i, 1);
         console.log("collision with brick");
         break;
     }

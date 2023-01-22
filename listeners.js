@@ -3,6 +3,18 @@ function addListeners(inputStates, canvas) {
     var mouseMovementTimeout;
     // add the listener to the main window object and update the states0
     // add the listener to the main window object and update the states
+
+        canvas.addEventListener('touchmove', function (evt) {
+    inputStates.touchPos = getTouchPos(evt, canvas);
+}, false);
+
+function getTouchPos(evt, canvas) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+        x: evt.touches[0].clientX - rect.left,
+        y: evt.touches[0].clientY - rect.top
+    };
+}
         window.addEventListener('keydown', function (event) {
             if (event.keyCode === 37) {
                 inputStates.key_left = true;

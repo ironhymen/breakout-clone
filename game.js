@@ -25,7 +25,7 @@ var GF = function () {
     let ball = new Ball(300, 400, 10, "red");
   let paddle = new Paddle(300, 550, 100, 20, "DeepSlatePurple");
   let brickArray = [];
-  numberOfBricks = 100;
+  numberOfBricks = 180;
     // clear the canvas content
     function clearCanvas() {
         ctx.clearRect(0, 0, w, h);
@@ -57,7 +57,7 @@ var GF = function () {
         for (var i = 0; i < rows; i++) {
             for (var j = 0; j < columns; j++) {
                 color = colors[Math.floor(Math.random() * colors.length)];
-        var brick = new Brick((brickWidth*j) + (j * xOffset) + startingX, (brickHeight*i) + (i * yOffset) + startingY, brickWidth, brickHeight, color)
+        var brick = new Brick((brickWidth*j) + startingX, (brickHeight*i) + startingY, brickWidth, brickHeight, color)
               
         brickArray.push(brick);
     }
@@ -141,9 +141,15 @@ var GF = function () {
         draw(ctx);
         break;
       case gameStates.gameOver:
-        ctx.fillText("Game Over", 300, 300);
+        checkButtons(gamepad);
+        checkAxes(gamepad);
+        if (brickArray.length == 0 ){
+          ctx.fillText("You Win", 300, 300);
+        } else {
+          ctx.fillText("Game Over", 300, 300);
+        }
         ctx.fillText("Time: " + currentLevelTime.toFixed(2), 300, 350);
-        if (inputStates.key_space) {
+        if (inputStates.key_space || inputStates.button0Pressed) {
           startNewGame();
        }
        break;
@@ -162,13 +168,14 @@ var GF = function () {
   };
   
   function startNewGame() {
-    currentLevelTime = 0;
+    
     brickArray = [];
     createBricks(numberOfBricks);
     ball = new Ball(300, 400, 10, "red");
     paddle = new Paddle(300, 550, 100, 20, "DeepSlatePurple");
 
     currentGameState = gameStates.gameRunning;
+    currentLevelTime = 0;
   }
 
     //----------------------------------
@@ -267,7 +274,7 @@ function checkButtons(gamepad) {
      }
      if(i == 0 && b.pressed) {
         inputStates.button0Pressed = true;
-    } else if(i == 0 && !b.pressed) {
+     } else if (i == 0 && !b.pressed) {
         inputStates.button0Pressed = false;
     }
  }
@@ -292,6 +299,7 @@ function scangamepads() {
 
     var start = function () {
       initFPSCounter();
+      currentLevelTime = 0;
         canvas = document.getElementById('breakout');
         w = canvas.width;
         h = canvas.height;
