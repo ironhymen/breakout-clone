@@ -21,12 +21,6 @@ class Paddle {
         ctx.lineTo(-this.width / 2, this.height / 2);
         ctx.closePath();
         ctx.fill();
-        ctx.beginPath();
-        ctx.fillStyle = "red";
-        ctx.arc(0, 0, 10, 0, 2 * Math.PI, false);
-        
-        ctx.fill();
-        ctx.closePath();
         ctx.restore();
     }
 
