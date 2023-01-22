@@ -1,0 +1,19 @@
+#breakout {
+    display: inline-block;
+    margin: 0 auto;
+    border: 15px double #000;
+    cursor: none;
+}
+
+#fps {
+    color: green;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+section {
+    float: left;
+    margin: 1em;
+    padding: 1em;
+}
