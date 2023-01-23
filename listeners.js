@@ -1,5 +1,5 @@
 function addListeners(inputStates, canvas) {
-    console.log("addListeners");
+    // console.log("addListeners");
     var mouseMovementTimeout;
     // add the listener to the main window object and update the states0
     // add the listener to the main window object and update the states

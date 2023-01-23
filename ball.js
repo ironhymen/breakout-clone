@@ -50,7 +50,7 @@ class Ball {
 
         // check for collision with paddle
         if (aabbCollisionDetection(this.pos, this.width, this.height, paddle.pos, paddle.width, paddle.height)) {
-            console.log("collision");
+            // console.log("collision");
             // find position of collision on paddle
             var collisionPointX = this.pos.x - paddle.pos.x;
             var collisionPointY = this.pos.y - paddle.pos.y;

@@ -59,9 +59,9 @@ class Paddle {
                this.pos.x += inputStates.leftThumb.x * this.key_speed;
                this.velocity = new Vector((this.pos.x - prevPos) / delta, 0);
                 this.acceleration = new Vector((this.velocity.x - prevVel) / delta, 0);
-                console.log("pos " + this.pos.x);
-                console.log("velocity " + this.velocity.x, this.velocity.y);
-                console.log("acceleration " + this.acceleration.x, this.acceleration.y);
+                // console.log("pos " + this.pos.x);
+                // console.log("velocity " + this.velocity.x, this.velocity.y);
+                // console.log("acceleration " + this.acceleration.x, this.acceleration.y);
     
            } else {
     this.velocity = new Vector(0, 0);
@@ -112,9 +112,9 @@ class Paddle {
         
         if (inputStates.button6Pressed || inputStates.key_shift) {
             if (inputStates.button6Pressed) {
-                console.log("Left Bumper Pressed");
+                // console.log("Left Bumper Pressed");
             } else {
-                console.log("Shift Pressed");
+                // console.log("Shift Pressed");
             }
             this.color = 'red';
             this.key_speed = 10;

@@ -1,5 +1,5 @@
 window.onload = function init() {
-    console.log("init");
+    // console.log("init");
     var game = new GF();
     game.start();
 }
@@ -238,16 +238,16 @@ window.addEventListener("gamepadconnected", function(e) {
    var nbButtons = gamepad.buttons.length;
    var nbAxes = gamepad.axes.length;
    
-   console.log("Gamepad No " + index +
-               ", with id " + id + " is connected. It has " +
-               nbButtons + " buttons and " +
-               nbAxes + " axes");
+  //  console.log("Gamepad No " + index +
+  //              ", with id " + id + " is connected. It has " +
+  //              nbButtons + " buttons and " +
+  //              nbAxes + " axes");
 });
 
 window.addEventListener("gamepaddisconnected", function(e) {
    var gamepad = e.gamepad;
    var index = gamepad.index;
-   console.log("Gamepad No " + index + " has been disconnected");
+  //  console.log("Gamepad No " + index + " has been disconnected");
 });
 
 // detect axis (joystick states)
