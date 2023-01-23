@@ -80,16 +80,22 @@ function getTouchPos(evt, canvas) {
         }, false);
     window.addEventListener('keydown', function (event) {
         if (event.keyCode === 37) {
+            event.preventDefault();
             inputStates.key_left = true;
         } else if (event.keyCode === 38) {
+            event.preventDefault();
             inputStates.up = true;
         } else if (event.keyCode === 39) {
+            event.preventDefault();
             inputStates.key_right = true;
         } else if (event.keyCode === 40) {
+            event.preventDefault();
             inputStates.down = true;
         } else if (event.keyCode === 32) {
+            event.preventDefault();
             inputStates.key_space = true;
         } else if (event.keyCode === 16) {
+            event.preventDefault();
             inputStates.key_shift = true;
         }
     }, false);
@@ -109,6 +115,9 @@ function getTouchPos(evt, canvas) {
             inputStates.key_shift = false;
         }
     });
+
+
+
 
     
     canvas.addEventListener('mousemove', function (evt) {
@@ -136,6 +145,7 @@ function getTouchPos(evt, canvas) {
     canvas.addEventListener('mousedown', function (evt) {
         inputStates.mousedown = true;
         inputStates.mouseButton = evt.button;
+        
     }, false);
 
     canvas.addEventListener('mouseup', function (evt) {

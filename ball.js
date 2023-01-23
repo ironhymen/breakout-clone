@@ -7,9 +7,10 @@ class Ball {
         this.mass = 1;
         this.friction = 0.01;
         this.acceleration = new Vector(0, 0);
-        this.maxSpeed = 0.5;
+        this.maxSpeed = 0.45;
         this.restitution = 0.9;
         this.desiredVelocity = new Vector(0, 0);
+        this.lockedToPaddle = true;
     }
 
     draw(ctx) {
@@ -85,8 +86,25 @@ class Ball {
             }
         }
     }
-    move(dt) {
+    move(dt, paddle) {
+
+        // if locked to paddle, move with paddle
+        if (this.lockedToPaddle) {
+            this.lockToPaddle(paddle);
+        } else {
        
-        this.pos = this.pos.add(this.velocity.multiply(dt));
-}
+            this.pos = this.pos.add(this.velocity.multiply(dt));
+        }
+    }
+    
+    lockToPaddle(paddle) {
+        this.pos.x = paddle.pos.x;
+        this.pos.y = paddle.pos.y - paddle.height / 2 - this.height / 2;
+    }
+
+    launch() {
+        this.velocity.x = this.maxSpeed;
+        this.velocity.y = -this.maxSpeed;
+        this.lockedToPaddle = false;
+    }
 }

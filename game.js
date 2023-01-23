@@ -25,7 +25,7 @@ var GF = function () {
     let ball = new Ball(300, 400, 10, "red");
   let paddle = new Paddle(300, 550, 100, 20, "DeepSlatePurple");
   let brickArray = [];
-  numberOfBricks = 180;
+  numberOfBricks = 56;
     // clear the canvas content
     function clearCanvas() {
         ctx.clearRect(0, 0, w, h);
@@ -39,30 +39,25 @@ var GF = function () {
   
   // create bricks
   function createBricks(numberOfBricks) {
-        colors = ['GoldenRod', 'Tomato', 'SteelBlue', 'RebeccaPurple', 'Sienna',
-            'SlateBlue', 'SlateGray', 'SpringGreen', 'SteelBlue', 'Teal', 'Thistle',
-            'Tomato', 'Turquoise', 'Violet', 'Wheat', 'WhiteSmoke', 'Yellow',
-            'YellowGreen', 'DarkGoldenRod', 'DarkGray', 'DarkGreen', 'DarkKhaki', 'DarkMagenta',
-            'DarkOliveGreen', 'DarkOrange', 'DarkOrchid', 'DarkRed', 'DarkSalmon', 'DarkSeaGreen'
-    ]
-        var brickWidth = 50;
-    var brickHeight = 20;
-        rows = Math.floor(Math.sqrt(numberOfBricks));
-        columns = Math.ceil(numberOfBricks / rows);
-    var xOffset = 15;
+    colors = ["red", "orange", "yellow", "green", "blue", "purple", "pink", "brown", "black", "white", "grey", "cyan", "magenta", "gold"]
+    var brickWidth = 800/14;  //800 pixels divided by 14 columns
+    var brickHeight = 25; // change to desired height between 20-25 pixels
+    rows = Math.floor(numberOfBricks/14);
+    columns = 14;
+    var xOffset = 0;
     var yOffset = 15;
-        var startingX = 75;
-        var startingY = 50;
-        
-        for (var i = 0; i < rows; i++) {
-            for (var j = 0; j < columns; j++) {
-                color = colors[Math.floor(Math.random() * colors.length)];
-        var brick = new Brick((brickWidth*j) + startingX, (brickHeight*i) + startingY, brickWidth, brickHeight, color)
-              
-        brickArray.push(brick);
+    var startingX = (800/14)/2;
+    var startingY = 50;
+
+    for (var i = 0; i < rows; i++) {
+        for (var j = 0; j < columns; j++) {
+            color = colors[i];
+            var brick = new Brick((brickWidth*j) + startingX, (brickHeight*i) + startingY, brickWidth, brickHeight, color)
+
+            brickArray.push(brick);
+        }
     }
 }
-    }
   function drawBricks(brickArray) {
         for (var i = 0; i < brickArray.length; i++) {
             var brick = brickArray[i];
@@ -83,7 +78,7 @@ var GF = function () {
     }
 
   function move(delta) {
-      ball.move(delta);
+      ball.move(delta, paddle);
         // move the game objects
     }
 
@@ -114,10 +109,14 @@ var GF = function () {
     // if no bricks left then game over
     if (brickArray.length == 0) {
       currentGameState = gameStates.gameOver = true;
+      var timeEnd = currentLevelTime;
+        delta = timer(newTime);
     }
 
     if (ball.pos.y > h) {
       currentGameState = gameStates.gameOver = true;
+      var timeEnd = currentLevelTime;
+        delta = timer(newTime);
     }
 
     switch (currentGameState) {
@@ -142,6 +141,7 @@ var GF = function () {
         draw(ctx);
         break;
       case gameStates.gameOver:
+        
         checkButtons(gamepad);
         checkAxes(gamepad);
         if (brickArray.length == 0 ){
@@ -149,9 +149,23 @@ var GF = function () {
         } else {
           ctx.fillText("Game Over", 300, 300);
         }
-        ctx.fillText("Time: " + currentLevelTime.toFixed(2), 300, 350);
-        if (inputStates.key_space || inputStates.button0Pressed) {
-          startNewGame();
+        ctx.fillText("Time: " + timeEnd.toFixed(2), 300, 350);
+        if (inputStates.key_space || inputStates.button9Pressed) {
+          if (brickArray.length == 0) {
+            numberOfBricks += 14;
+            startNewGame();
+          }
+          else {
+            startNewGame();
+          }
+        } else if (inputStates.mouseButton == 2 || inputStates.mouseButton == 1) {
+          if (brickArray.length == 0) {
+            numberOfBricks += 14;
+            startNewGame();
+          }
+          else {
+            startNewGame();
+          }
        }
        break;
 
@@ -169,14 +183,19 @@ var GF = function () {
   };
   
   function startNewGame() {
+
     
     brickArray = [];
     createBricks(numberOfBricks);
     ball = new Ball(300, 400, 10, "red");
     paddle = new Paddle(300, 550, 100, 20, "DeepSlatePurple");
-
-    currentGameState = gameStates.gameRunning;
     currentLevelTime = 0;
+    ball.velocity = new Vector(0, 0);
+    ball.acceleration = new Vector(0, 0);
+    ball.lockedToPaddle = true;
+    delta = 0;
+    currentGameState = gameStates.gameRunning;
+    
   }
 
     //----------------------------------
@@ -277,6 +296,11 @@ function checkButtons(gamepad) {
         inputStates.button0Pressed = true;
      } else if (i == 0 && !b.pressed) {
         inputStates.button0Pressed = false;
+   }
+   if(i == 9 && b.pressed) {
+        inputStates.button9Pressed = true;
+     } else if (i == 9 && !b.pressed) {
+        inputStates.button9Pressed = false;
     }
  }
   

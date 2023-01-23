@@ -25,6 +25,15 @@ class Paddle {
     }
 
     update(inputStates, delta, ball) {
+        if (inputStates.mouseButton === 0) {
+                // release ball
+                if (ball.lockedToPaddle === true) {
+                    ball.launch();
+                } else {
+                    // do nothing
+            }
+
+        }
         if (inputStates.isMouseUsed) {
             if (inputStates.mousePos) {
                 // move paddle
@@ -32,18 +41,11 @@ class Paddle {
                 var prevVel = this.velocity.x;
                 this.pos = new Vector(inputStates.mousePos.x, this.pos.y);
                 this.velocity = new Vector((this.pos.x - prevPos) / delta, 0);
-                this.acceleration = new Vector((this.velocity.x - prevVel) / delta, 0);
-                
+                this.acceleration = new Vector((this.velocity.x - prevVel) / delta, 0);                
         }
 
 
-            if (inputStates.mouseButton === 0) {
-                // release ball
-                if (ball.velocity.x === 0 && ball.velocity.y === 0) {
-                    ball.velocity = new Vector(0.1, 0.1);
-                }
-
-            }
+            
         
 
         } else {
@@ -78,7 +80,6 @@ class Paddle {
 
         // }
             if (inputStates.key_left) {
-                console.log("key_left");
                 var prevPos = this.pos.x;
                 var prevVel = this.velocity.x;
                 this.pos.x -= this.key_speed;
@@ -95,8 +96,11 @@ class Paddle {
 
 
         }
-        if (inputStates.key_space) {
+        if (inputStates.key_shift || inputStates.button0Pressed) {
             // release ball
+             if (ball.lockedToPaddle === true) {
+                    ball.launch();
+                } 
         }
 
 
