@@ -46,14 +46,17 @@ var GF = function () {
     { color1: '#ffa500 ', color2: '#8b4500' }, // orange
       { color1: '#ffff00 ', color2: '#808000' }, // yellow
     { color1: '#008000', color2: '#006400' }, // green
-    { color1: '#0000ff ', color2: '#00008b' }, // blue
+      { color1: '#0000ff ', color2: '#00008b' }, // blue
       { color1: '#4b0082 ', color2: '#2f0057' }, // indigo
-    { color1: '#ee82ee', color2: '#9400d3' }, // violet
-    { color1: '#FDD819', color2: '#FDD819' },
-      { color1: '#FDD819', color2: '#FDD819' },
-    { color1: '#FDD819', color2: '#FDD819' },
-    { color1: '#FDD819', color2: '#FDD819' },
-    { color1: '#FDD819', color2: '#FDD819' },
+      { color1: '#ee82ee', color2: '#9400d3' }, // violet
+      { color1: '#ee82ee', color2: '#9400d3' }, // violet
+      { color1: '#4b0082 ', color2: '#2f0057' }, // indigo
+      { color1: '#0000ff ', color2: '#00008b' }, // blue
+    { color1: '#008000', color2: '#006400' }, // green
+      { color1: '#ffff00 ', color2: '#808000' }, // yellow
+    { color1: '#ffa500 ', color2: '#8b4500' }, // orange
+    { color1: '#ff0000 ', color2: '#8b0000' }, // red
+    
 ];
 
     var brickWidth = 800/14;  //800 pixels divided by 14 columns

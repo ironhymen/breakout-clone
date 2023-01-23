@@ -72,8 +72,12 @@ function getTouchPos(evt, canvas) {
 
         canvas.addEventListener('mousedown', function (evt) {
                 inputStates.mousedown = true;
-                inputStates.mouseButton = evt.button;
+            inputStates.mouseButton = evt.button;
+            evt.preventDefault();
         }, false);
+    canvas.addEventListener('contextmenu', function (evt) {
+  evt.preventDefault();
+}, false);
 
         canvas.addEventListener('mouseup', function (evt) {
             inputStates.mousedown = false;
@@ -145,7 +149,7 @@ function getTouchPos(evt, canvas) {
     canvas.addEventListener('mousedown', function (evt) {
         inputStates.mousedown = true;
         inputStates.mouseButton = evt.button;
-        
+
     }, false);
 
     canvas.addEventListener('mouseup', function (evt) {
