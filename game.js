@@ -77,12 +77,13 @@ var GF = function () {
 
     // update loop
     function update(inputStates, delta, w, h,) {
-        paddle.update(inputStates, delta);
+        paddle.update(inputStates, delta, ball);
         ball.update(delta, paddle, brickArray, w, h);
         // update the game state
     }
 
-    function move(delta) {
+  function move(delta) {
+      ball.move(delta);
         // move the game objects
     }
 
@@ -111,13 +112,13 @@ var GF = function () {
     clearCanvas();
     
     // if no bricks left then game over
-    if (brickArray.length == 0) {
-      currentGameState = gameStates.gameOver = true;
-    }
+    // if (brickArray.length == 0) {
+    //   currentGameState = gameStates.gameOver = true;
+    // }
 
-    if (ball.pos.y > h) {
-      currentGameState = gameStates.gameOver = true;
-    }
+    // if (ball.pos.y > h) {
+    //   currentGameState = gameStates.gameOver = true;
+    // }
 
     switch (currentGameState) {
       case gameStates.gameRunning:

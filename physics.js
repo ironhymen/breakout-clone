@@ -28,7 +28,7 @@ class Vector {
   }
 
   // Method for finding the dot product of two vectors
-  dotProduct(v) {
+  dot(v) {
     return this.x * v.x + this.y * v.y;
     }
     
@@ -43,8 +43,15 @@ class Vector {
 
   // Method for normalizing the vector
   normalize() {
-    const len = this.length();
+      const len = this.length();
+      if (len === 0) {
+          return new Vector(0, 0);
+        }
     return new Vector(this.x / len, this.y / len);
+    }
+
+    normal() {
+        return new Vector(-this.y, this.x);
     }
     
     rotate(angle) {
@@ -56,7 +63,21 @@ class Vector {
     }
 
     reflect(normal) {
-        return this.sub(normal.multiply(2 * this.dotProduct(normal)))
+        return this.sub(normal.multiply(2 * this.dot(normal)))
+    }
+
+    getQuadrant() {
+        if (this.x >= 0 && this.y <= 0) {
+            return 1;
+        } else if (this.x <= 0 && this.y <= 0) {
+            return 2;
+        } else if (this.x <= 0 && this.y >= 0) {
+            return 3;
+        } else if (this.x >= 0 && this.y >= 0) {
+            return 4;
+        } else {
+            return 0;
+        }
     }
 
     static distance(vector1, vector2) {

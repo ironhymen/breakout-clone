@@ -24,7 +24,7 @@ class Paddle {
         ctx.restore();
     }
 
-    update(inputStates, delta) {
+    update(inputStates, delta, ball) {
         if (inputStates.isMouseUsed) {
             if (inputStates.mousePos) {
                 // move paddle
@@ -33,7 +33,6 @@ class Paddle {
                 this.pos = new Vector(inputStates.mousePos.x, this.pos.y);
                 this.velocity = new Vector((this.pos.x - prevPos) / delta, 0);
                 this.acceleration = new Vector((this.velocity.x - prevVel) / delta, 0);
-                console.log("pos " + this.pos);
                 
         }
 
@@ -41,6 +40,9 @@ class Paddle {
             console.log("mousedown");
             if (inputStates.mouseButton === 0) {
                 // release ball
+                if (ball.velocity.x === 0 && ball.velocity.y === 0) {
+                    ball.velocity = new Vector(0.1, 0.1);
+                }
 
             }
         }
