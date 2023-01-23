@@ -103,7 +103,7 @@ class Ball {
     }
 
     launch() {
-        this.velocity.x = this.maxSpeed;
+        this.velocity.x = (Math.random() * this.maxSpeed * 2 - this.maxSpeed);
         this.velocity.y = -this.maxSpeed;
         this.lockedToPaddle = false;
     }

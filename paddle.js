@@ -1,9 +1,10 @@
 class Paddle {
-    constructor(x, y, width, height, color) {
+    constructor(x, y, width, height, color1, color2) {
         this.pos = new Vector(x, y);
         this.width = width;
         this.height = height;
-        this.color = color;
+        this.color1 = color1;
+        this.color2 = color2;
         this.velocity = new Vector(0, 0);
         this.mass = 1;
         this.friction = 0.99;
@@ -12,7 +13,10 @@ class Paddle {
 
     draw(ctx) {
         ctx.save();
-        ctx.fillStyle = this.color;
+        var gradient = ctx.createLinearGradient(0, 0, 0, this.height/2);
+        gradient.addColorStop(0, this.color1);
+        gradient.addColorStop(1, this.color2);
+        ctx.fillStyle = gradient;
         ctx.translate(this.pos.x, this.pos.y);
         ctx.beginPath();
         ctx.moveTo(-this.width / 2, -this.height / 2);

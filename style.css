@@ -2,6 +2,10 @@ body {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+    align-items: flex-start;
+    font: 1em sans-serif;
+    background-color: rgb(48, 48, 48);
+    color: white;
 }
 
 header {
@@ -11,8 +15,9 @@ header {
 }
 
 #breakout {
-    border: 15px double #000;
-    cursor: none;
+    cursor:crosshair;
+    background-color: rgb(37, 35, 35);
+    border: 10px solid black;
 }
 
 #FPS {
@@ -20,4 +25,12 @@ header {
     font-size: 20px;
     font-weight: bold;
     text-align: center;
+    float: left;
+    position: absolute;
+    left: 0;
+}
+
+#controls {
+    max-width: 30%;
+    padding: 2rem;
 }

@@ -22,13 +22,14 @@ var GF = function () {
    analogicValueProgressBar = document.querySelector("#buttonValue");
    directionDiv = document.querySelector("#direction");
     angleDiv = document.querySelector("#angle");
-    let ball = new Ball(300, 400, 10, "red");
-  let paddle = new Paddle(300, 550, 100, 20, "DeepSlatePurple");
+    let ball = new Ball(300, 400, 10, "FloralWhite");
+  let paddle = new Paddle(300, 550, 100, 20, "FloralWhite", "FloralWhite");
   let brickArray = [];
   numberOfBricks = 56;
     // clear the canvas content
-    function clearCanvas() {
-        ctx.clearRect(0, 0, w, h);
+  function clearCanvas() {
+    ctx.clearRect(0, 0, w, h);
+       
     };
 
     function timer(currentTime) {
@@ -39,7 +40,22 @@ var GF = function () {
   
   // create bricks
   function createBricks(numberOfBricks) {
-    colors = ["red", "orange", "yellow", "green", "blue", "purple", "pink", "brown", "black", "white", "grey", "cyan", "magenta", "gold"]
+    // gradient color pair list
+    var colors = [
+    { color1: '#ff0000 ', color2: '#8b0000' }, // red
+    { color1: '#ffa500 ', color2: '#8b4500' }, // orange
+      { color1: '#ffff00 ', color2: '#808000' }, // yellow
+    { color1: '#008000', color2: '#006400' }, // green
+    { color1: '#0000ff ', color2: '#00008b' }, // blue
+      { color1: '#4b0082 ', color2: '#2f0057' }, // indigo
+    { color1: '#ee82ee', color2: '#9400d3' }, // violet
+    { color1: '#FDD819', color2: '#FDD819' },
+      { color1: '#FDD819', color2: '#FDD819' },
+    { color1: '#FDD819', color2: '#FDD819' },
+    { color1: '#FDD819', color2: '#FDD819' },
+    { color1: '#FDD819', color2: '#FDD819' },
+];
+
     var brickWidth = 800/14;  //800 pixels divided by 14 columns
     var brickHeight = 25; // change to desired height between 20-25 pixels
     rows = Math.floor(numberOfBricks/14);
@@ -50,9 +66,10 @@ var GF = function () {
     var startingY = 50;
 
     for (var i = 0; i < rows; i++) {
-        for (var j = 0; j < columns; j++) {
-            color = colors[i];
-            var brick = new Brick((brickWidth*j) + startingX, (brickHeight*i) + startingY, brickWidth, brickHeight, color)
+      
+      for (var j = 0; j < columns; j++) {
+          
+            var brick = new Brick((brickWidth*j) + startingX, (brickHeight*i) + startingY, brickWidth, brickHeight, colors[i].color1, colors[i].color2)
 
             brickArray.push(brick);
         }
@@ -63,7 +80,15 @@ var GF = function () {
             var brick = brickArray[i];
             brick.draw(ctx);
         }
-    }
+  }
+  
+  function drawGUI() {
+    ctx.save();
+    ctx.font = "bold 20px Arial";
+    ctx.fillStyle = "FloralWhite";
+    ctx.fillText("Bricks Left " + brickArray.length, 10, 25);
+      ctx.fillText("Time: " + currentLevelTime.toFixed(2), 150, 25);
+  }
 
 
 
@@ -82,12 +107,13 @@ var GF = function () {
         // move the game objects
     }
 
-    function draw(ctx) {
+  function draw(ctx) {
+      drawGUI();
+      
         ball.draw(ctx);
       paddle.draw(ctx);
       drawBricks(brickArray);
-      ctx.fillText("Bricks Left " + brickArray.length, 10, 20);
-      ctx.fillText("Time: " + currentLevelTime.toFixed(2), 100, 20);
+      
         // draw the game objects
   }
   
@@ -187,8 +213,8 @@ var GF = function () {
     
     brickArray = [];
     createBricks(numberOfBricks);
-    ball = new Ball(300, 400, 10, "red");
-    paddle = new Paddle(300, 550, 100, 20, "DeepSlatePurple");
+    ball = new Ball(300, 400, 10, "white");
+    paddle = new Paddle(300, 550, 100, 20, "white", "white");
     currentLevelTime = 0;
     ball.velocity = new Vector(0, 0);
     ball.acceleration = new Vector(0, 0);
