@@ -112,13 +112,13 @@ var GF = function () {
     clearCanvas();
     
     // if no bricks left then game over
-    // if (brickArray.length == 0) {
-    //   currentGameState = gameStates.gameOver = true;
-    // }
+    if (brickArray.length == 0) {
+      currentGameState = gameStates.gameOver = true;
+    }
 
-    // if (ball.pos.y > h) {
-    //   currentGameState = gameStates.gameOver = true;
-    // }
+    if (ball.pos.y > h) {
+      currentGameState = gameStates.gameOver = true;
+    }
 
     switch (currentGameState) {
       case gameStates.gameRunning:

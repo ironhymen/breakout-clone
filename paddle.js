@@ -36,8 +36,7 @@ class Paddle {
                 
         }
 
-            if (inputStates.mousedown) {
-            console.log("mousedown");
+
             if (inputStates.mouseButton === 0) {
                 // release ball
                 if (ball.velocity.x === 0 && ball.velocity.y === 0) {
@@ -45,7 +44,7 @@ class Paddle {
                 }
 
             }
-        }
+        
 
         } else {
            if (inputStates.leftThumb && (inputStates.leftThumb.x < -0.05 || inputStates.leftThumb.x > 0.05)) {
